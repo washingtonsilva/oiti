@@ -1,5 +1,10 @@
 
 load("dados.Rdata")
+load("dados_stempo.Rdata")
+load("dados_long.Rdata")
+
+#############################################################
+##############  ESTATISTICAS DESCRTIVIVAS   #################
 
 Sensor_1 <- summary(dados$s1)
 Sensor_2 <- summary(dados$s2)
@@ -13,10 +18,14 @@ s <- rbind(Sensor_1, Sensor_2, Sensor_3, Sensor_4,
            Sensor_5, Sensor_6, Sensor_7, Sensor_8) 
 print(s)
 
-library(stargazer)
-stargazer(dados[,c(2:9)], type = "text")
+#############################################################
+#############################################################
+
+##################  ANALISE GRAFICA   #######################
 
 library(plotly)
+
+### GRAFICO DE LINHA INTERATIVO TODAS AS SERIES
 
 f <- list(
   family = "Courier New, monospace",
@@ -31,7 +40,7 @@ y <- list(
   title = "Temperatura (em C)",
   titlefont = f)
 
-p <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
+p1 <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
   layout(xaxis = x, yaxis = y) %>% 
   add_lines(y = ~dados$s2, name = "Sensor 2") %>% 
   add_lines(y = ~dados$s2, name = "Sensor 3") %>% 
@@ -40,17 +49,15 @@ p <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "lines
   add_lines(y = ~dados$s5, name = "Sensor 6") %>% 
   add_lines(y = ~dados$s6, name = "Sensor 7") %>% 
   add_lines(y = ~dados$s7, name = "Sensor 8")
-p
+p1
 
-
-p2 <- plot_ly(x = ~dados$datetime, y = ~dados$s1, frame = ~dados$datetime, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
-  layout(xaxis = x, yaxis = y) %>% 
-  add_lines(y = ~dados$s2, name = "Sensor 2") %>% 
-  add_lines(y = ~dados$s2, name = "Sensor 3") %>% 
-  add_lines(y = ~dados$s3, name = "Sensor 4") %>% 
-  add_lines(y = ~dados$s4, name = "Sensor 5") %>% 
-  add_lines(y = ~dados$s5, name = "Sensor 6") %>% 
-  add_lines(y = ~dados$s6, name = "Sensor 7") %>% 
-  add_lines(y = ~dados$s7, name = "Sensor 8")
+### BOXPLOT TODAS AS SERIES
+p2 <- ggplot(dados_long, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
+p2 <- ggplotly(p2)
 p2
+
+### HISTOGRAMAS
+p3 <- plot_ly(x = ~dados$s1, type = "histogram")
+p3
+
 
