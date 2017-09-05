@@ -25,8 +25,6 @@ print(s)
 
 library(plotly)
 
-### GRAFICO DE LINHA INTERATIVO TODAS AS SERIES
-
 f <- list(
   family = "Courier New, monospace",
   size = 18,
@@ -40,7 +38,52 @@ y <- list(
   title = "Temperatura (em C)",
   titlefont = f)
 
-p1 <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
+################################################################
+####           GRAFICOS DE LINHA INTERATIVOS                ####
+################################################################
+
+### df1 <- Antes de 2017-08-22 17:00
+
+p1 <- plot_ly(x = ~df1$datetime, y = ~df1$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
+  layout(xaxis = x, yaxis = y) %>% 
+  add_lines(y = ~df1$s2, name = "Sensor 2") %>% 
+  add_lines(y = ~df1$s2, name = "Sensor 3") %>% 
+  add_lines(y = ~df1$s3, name = "Sensor 4") %>% 
+  add_lines(y = ~df1$s4, name = "Sensor 5") %>% 
+  add_lines(y = ~df1$s5, name = "Sensor 6") %>% 
+  add_lines(y = ~df1$s6, name = "Sensor 7") %>% 
+  add_lines(y = ~df1$s7, name = "Sensor 8")
+p1
+
+### df4 <- Após 2017-08-22 17:00 e antes de 2017-08-22 18:25
+
+p2 <- plot_ly(x = ~df4$datetime, y = ~df4$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
+  layout(xaxis = x, yaxis = y) %>% 
+  add_lines(y = ~df4$s2, name = "Sensor 2") %>% 
+  add_lines(y = ~df4$s2, name = "Sensor 3") %>% 
+  add_lines(y = ~df4$s3, name = "Sensor 4") %>% 
+  add_lines(y = ~df4$s4, name = "Sensor 5") %>% 
+  add_lines(y = ~df4$s5, name = "Sensor 6") %>% 
+  add_lines(y = ~df4$s6, name = "Sensor 7") %>% 
+  add_lines(y = ~df4$s7, name = "Sensor 8")
+p2
+
+### df7 <- Após 2017-08-22 18:25
+
+p3 <- plot_ly(x = ~df7$datetime, y = ~df7$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
+  layout(xaxis = x, yaxis = y) %>% 
+  add_lines(y = ~df7$s2, name = "Sensor 2") %>% 
+  add_lines(y = ~df7$s2, name = "Sensor 3") %>% 
+  add_lines(y = ~df7$s3, name = "Sensor 4") %>% 
+  add_lines(y = ~df7$s4, name = "Sensor 5") %>% 
+  add_lines(y = ~df7$s5, name = "Sensor 6") %>% 
+  add_lines(y = ~df7$s6, name = "Sensor 7") %>% 
+  add_lines(y = ~df7$s7, name = "Sensor 8")
+p3
+
+### dados <- Todas as medições
+
+p4 <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
   layout(xaxis = x, yaxis = y) %>% 
   add_lines(y = ~dados$s2, name = "Sensor 2") %>% 
   add_lines(y = ~dados$s2, name = "Sensor 3") %>% 
@@ -49,15 +92,23 @@ p1 <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "line
   add_lines(y = ~dados$s5, name = "Sensor 6") %>% 
   add_lines(y = ~dados$s6, name = "Sensor 7") %>% 
   add_lines(y = ~dados$s7, name = "Sensor 8")
-p1
+p4
 
-### BOXPLOT TODAS AS SERIES
-p2 <- ggplot(dados_long, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
-p2 <- ggplotly(p2)
-p2
+################################################################
+####                   BOXPLOTS                             ####
+################################################################
 
-### HISTOGRAMAS
-p3 <- plot_ly(x = ~dados$s1, type = "histogram")
-p3
+### df3 <- Antes de 2017-08-22 17:00
+p5 <- ggplot(df3, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
+p5 <- ggplotly(p5)
+p5
 
+### df6 <- Após 2017-08-22 17:00 e antes de 2017-08-22 18:25
+p6 <- ggplot(df6, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
+p6 <- ggplotly(p6)
+p6
 
+### df9 <- Após 2017-08-22 18:25
+p7 <- ggplot(df9, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
+p7 <- ggplotly(p7)
+p7
