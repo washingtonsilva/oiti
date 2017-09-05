@@ -16,6 +16,7 @@ dados$datetime <- as.POSIXct(dados$datetime, format="%m-%d-%YT%H:%M",  tz = "Ame
 str(dados$datetime)
 head(dados)
 tail(dados)
+str(dados)
 
 #### Verifando a data.frame
 vis_dat(dados)
@@ -33,6 +34,7 @@ save(dados, file = "dados.Rdata")
 df1 <- subset(dados, datetime < as.POSIXct('2017-08-22 17:00'))
 head(df1)
 tail(df1)
+str(df1)
 save(df1, file = "df1.Rdata")
 
 # df2 = df1 sem a coluna 1 (data-tempo) - wide format
@@ -54,6 +56,7 @@ df4 <- subset(dados, datetime >= as.POSIXct('2017-08-22 17:00')
               & datetime < as.POSIXct('2017-08-22 18:25'))
 head(df4)
 tail(df4)
+str(df4)
 save(df4, file = "df4.Rdata")
 
 # df5 = df4 sem a coluna 1 (data-tempo) - wide format

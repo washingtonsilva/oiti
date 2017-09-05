@@ -1,7 +1,6 @@
 
-load("dados.Rdata")
-load("dados_stempo.Rdata")
-load("dados_long.Rdata")
+library(stargazer)
+
 
 #############################################################
 ##############  ESTATISTICAS DESCRTIVIVAS   #################
@@ -17,6 +16,12 @@ Sensor_8 <- summary(dados$s8)
 s <- rbind(Sensor_1, Sensor_2, Sensor_3, Sensor_4, 
            Sensor_5, Sensor_6, Sensor_7, Sensor_8) 
 print(s)
+
+# Usando stargazer
+stargazer(as.data.frame(df1), type = "text")
+stargazer(as.data.frame(df4), type = "text")
+stargazer(as.data.frame(df7), type = "text")
+stargazer(as.data.frame(dados), type = "text")
 
 #############################################################
 #############################################################
@@ -42,7 +47,8 @@ y <- list(
 ####           GRAFICOS DE LINHA INTERATIVOS                ####
 ################################################################
 
-### df1 <- Antes de 2017-08-22 17:00
+### df1 <- Antes de 2017-08-22 17:00 
+### 85 obs. of  9 variables
 
 p1 <- plot_ly(x = ~df1$datetime, y = ~df1$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
   layout(xaxis = x, yaxis = y) %>% 
@@ -56,6 +62,7 @@ p1 <- plot_ly(x = ~df1$datetime, y = ~df1$s1, type = "scatter", mode = "lines", 
 p1
 
 ### df4 <- Após 2017-08-22 17:00 e antes de 2017-08-22 18:25
+###  85 obs. of  9 variables
 
 p2 <- plot_ly(x = ~df4$datetime, y = ~df4$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
   layout(xaxis = x, yaxis = y) %>% 
@@ -68,7 +75,8 @@ p2 <- plot_ly(x = ~df4$datetime, y = ~df4$s1, type = "scatter", mode = "lines", 
   add_lines(y = ~df4$s7, name = "Sensor 8")
 p2
 
-### df7 <- Após 2017-08-22 18:25
+### df7 <- Após 2017-08-22 18:25 
+### 2901 obs. of  9 variables
 
 p3 <- plot_ly(x = ~df7$datetime, y = ~df7$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
   layout(xaxis = x, yaxis = y) %>% 
@@ -81,7 +89,8 @@ p3 <- plot_ly(x = ~df7$datetime, y = ~df7$s1, type = "scatter", mode = "lines", 
   add_lines(y = ~df7$s7, name = "Sensor 8")
 p3
 
-### dados <- Todas as medições
+### dados <- Todas as medições 
+### 3072 obs. of  9 variables
 
 p4 <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
   layout(xaxis = x, yaxis = y) %>% 
