@@ -146,8 +146,5 @@ p7
 
 ## dados_long <- Medições de todo o período
 p8 <- ggplot(dados_long, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
-p8 + scale_fill_discrete(name=" ",
-                         breaks=c("s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"),
-                         labels=c("Sensor 1", "Sensor 2", "Sensor 3", "Sensor 4", "Sensor 5", "Sensor 6", "Sensor 7", "Sensor 8"))
 p8 <- ggplotly(p8)
 p8
