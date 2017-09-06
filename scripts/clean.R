@@ -16,6 +16,7 @@ dados$datetime <- as.POSIXct(dados$datetime, format="%m-%d-%YT%H:%M",  tz = "Ame
 str(dados$datetime)
 head(dados)
 tail(dados)
+names(dados) <- c("datetime", "Sensor 1", "Sensor 2", "Sensor 3", "Sensor 4", "Sensor 5", "Sensor 6", "Sensor 7", "Sensor 8")
 str(dados)
 
 #### Verifando a data.frame
@@ -35,6 +36,7 @@ dados_long <- stack(dados_wide)
 head(dados_long)
 colnames(dados_long) <- c("Temperatura", "Sensores")
 tail(dados_long)
+str(dados_long)
 save(dados_long, file = "dados_long.Rdata")
 
 ###############################################################
@@ -46,6 +48,7 @@ save(dados_long, file = "dados_long.Rdata")
 df1 <- subset(dados, datetime < as.POSIXct('2017-08-22 17:00'))
 head(df1)
 tail(df1)
+names(df1) <- c("datetime", "Sensor 1", "Sensor 2", "Sensor 3", "Sensor 4", "Sensor 5", "Sensor 6", "Sensor 7", "Sensor 8")
 str(df1)
 save(df1, file = "df1.Rdata")
 
@@ -68,6 +71,7 @@ df4 <- subset(dados, datetime >= as.POSIXct('2017-08-22 17:00')
               & datetime < as.POSIXct('2017-08-22 18:25'))
 head(df4)
 tail(df4)
+names(df4) <- c("datetime", "Sensor 1", "Sensor 2", "Sensor 3", "Sensor 4", "Sensor 5", "Sensor 6", "Sensor 7", "Sensor 8")
 str(df4)
 save(df4, file = "df4.Rdata")
 
@@ -88,6 +92,8 @@ save(df6, file = "df6.Rdata")
 df7 <- subset(dados, datetime > as.POSIXct('2017-08-22 18:25'))
 head(df7)
 tail(df7)
+names(df7) <- c("datetime", "Sensor 1", "Sensor 2", "Sensor 3", "Sensor 4", "Sensor 5", "Sensor 6", "Sensor 7", "Sensor 8")
+str(df7)
 save(df7, file = "df7.Rdata")
 
 # df8 = df7 sem a coluna 1 (data-tempo) - wide format
