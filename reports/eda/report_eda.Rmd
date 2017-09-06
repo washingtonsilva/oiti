@@ -1,7 +1,7 @@
 ---
-title: "Análise Exploratória de Dados"
-author: "Prof. Washington S. Silva"
-date: "30 de agosto de 2017"
+title: "Análise Exploratória de Dados da Temperatura"
+author: "Washington S. Silva"
+date: "5 de Setembro de 2017"
 output: 
   html_document:
     theme: simplex
@@ -12,30 +12,57 @@ output:
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
-# 1. Estatísticas Descritivas
-
-```{r clean, echo = FALSE}
-load("dados.Rdata")
-load("dados_long.Rdata")
-
-Sensor_1 <- summary(dados$s1)
-Sensor_2 <- summary(dados$s2)
-Sensor_3 <- summary(dados$s3)
-Sensor_4 <- summary(dados$s4)
-Sensor_5 <- summary(dados$s5)
-Sensor_6 <- summary(dados$s6)
-Sensor_7 <- summary(dados$s7)
-Sensor_8 <- summary(dados$s8)
-s <- rbind(Sensor_1, Sensor_2, Sensor_3, Sensor_4, 
-           Sensor_5, Sensor_6, Sensor_7, Sensor_8) 
-print(s)
-```
-
-## 2.1 Tempertura: Gráfico Interativo
-
-```{r interativo, echo = FALSE}
+```{r, echo = FALSE}
+# Bibliotecas 
+library(mosaic)
 library(plotly)
 
+# Dados
+load("dados.Rdata")
+load("dados_long.Rdata")
+load("df1.Rdata")
+load("df2.Rdata")
+load("df3.Rdata")
+load("df4.Rdata")
+load("df5.Rdata")
+load("df6.Rdata")
+load("df7.Rdata")
+load("df8.Rdata")
+load("df9.Rdata")
+```
+
+
+# 1. Estatísticas Descritivas
+
+## 1.1 Antes das 17 horas de 22/08/2017  
+
+```{r df3, echo = FALSE}
+favstats(Temperatura~Sensores, data=df3)
+```
+
+## 1.2 Após as 17 horas de 22/08/2017  e antes das 18:25 horas de 22/08/2017 
+
+```{r df6, echo = FALSE}
+favstats(Temperatura~Sensores, data=df6)
+```
+
+## 1.3 Após as 18:25 horas de 22/08/2017 
+
+```{r df9, echo = FALSE}
+favstats(Temperatura~Sensores, data=df9)
+```
+
+## 1.4 Medições de todo o período
+```{r, echo = FALSE}
+favstats(Temperatura~Sensores, data=dados_long)
+```
+
+
+# 2 Gráficos das Séries Temporais
+
+## 2.1 Antes das 17 horas de 22/08/2017 
+
+```{r, echo = FALSE}
 f <- list(
   family = "Courier New, monospace",
   size = 18,
@@ -49,7 +76,54 @@ y <- list(
   title = "Temperatura (em C)",
   titlefont = f)
 
-p1 <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
+p1 <- plot_ly(x = ~df1$datetime, y = ~df1$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
+  layout(xaxis = x, yaxis = y) %>% 
+  add_lines(y = ~df1$s2, name = "Sensor 2") %>% 
+  add_lines(y = ~df1$s2, name = "Sensor 3") %>% 
+  add_lines(y = ~df1$s3, name = "Sensor 4") %>% 
+  add_lines(y = ~df1$s4, name = "Sensor 5") %>% 
+  add_lines(y = ~df1$s5, name = "Sensor 6") %>% 
+  add_lines(y = ~df1$s6, name = "Sensor 7") %>% 
+  add_lines(y = ~df1$s7, name = "Sensor 8")
+p1
+```
+
+
+## 2.2 Após as 17 horas de 22/08/2017  e antes das 18:25 horas de 22/08/2017
+
+```{r, echo = FALSE}
+p2 <- plot_ly(x = ~df4$datetime, y = ~df4$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
+  layout(xaxis = x, yaxis = y) %>% 
+  add_lines(y = ~df4$s2, name = "Sensor 2") %>% 
+  add_lines(y = ~df4$s2, name = "Sensor 3") %>% 
+  add_lines(y = ~df4$s3, name = "Sensor 4") %>% 
+  add_lines(y = ~df4$s4, name = "Sensor 5") %>% 
+  add_lines(y = ~df4$s5, name = "Sensor 6") %>% 
+  add_lines(y = ~df4$s6, name = "Sensor 7") %>% 
+  add_lines(y = ~df4$s7, name = "Sensor 8")
+p2
+```
+
+
+## 2.3 Após as 18:25 horas de 22/08/2017 
+
+```{r, echo = FALSE}
+p3 <- plot_ly(x = ~df7$datetime, y = ~df7$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
+  layout(xaxis = x, yaxis = y) %>% 
+  add_lines(y = ~df7$s2, name = "Sensor 2") %>% 
+  add_lines(y = ~df7$s2, name = "Sensor 3") %>% 
+  add_lines(y = ~df7$s3, name = "Sensor 4") %>% 
+  add_lines(y = ~df7$s4, name = "Sensor 5") %>% 
+  add_lines(y = ~df7$s5, name = "Sensor 6") %>% 
+  add_lines(y = ~df7$s6, name = "Sensor 7") %>% 
+  add_lines(y = ~df7$s7, name = "Sensor 8")
+p3
+```
+
+## 2.4 Medições de todo o período
+
+```{r, echo = FALSE}
+p4 <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "lines", name = "Sensor 1")  %>%
   layout(xaxis = x, yaxis = y) %>% 
   add_lines(y = ~dados$s2, name = "Sensor 2") %>% 
   add_lines(y = ~dados$s2, name = "Sensor 3") %>% 
@@ -58,11 +132,42 @@ p1 <- plot_ly(x = ~dados$datetime, y = ~dados$s1, type = "scatter", mode = "line
   add_lines(y = ~dados$s5, name = "Sensor 6") %>% 
   add_lines(y = ~dados$s6, name = "Sensor 7") %>% 
   add_lines(y = ~dados$s7, name = "Sensor 8")
-p1
+p4
 ```
 
-```{r, echo =  FALSE}
-p2 <- plot_ly(dados_long, x = ~values, color = ~ind, type = "box")
-p2
+# 3 Boxplots
+
+## 3.1 Antes das 17 horas de 22/08/2017 
+
+```{r, echo = FALSE}
+p5 <- ggplot(df3, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
+p5 <- ggplotly(p5)
+p5
+```
+
+## 3.2 Após as 17 horas de 22/08/2017  e antes das 18:25 horas de 22/08/2017
+
+```{r, echo = FALSE}
+p6 <- ggplot(df6, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
+p6 <- ggplotly(p6)
+p6
+```
+
+
+## 3.3 Após as 18:25 horas de 22/08/2017 
+
+```{r, echo = FALSE}
+p7 <- ggplot(df9, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
+p7 <- ggplotly(p7)
+p7
+```
+
+
+## 3.4 Medições de todo o período
+
+```{r, echo = FALSE}
+p8 <- ggplot(dados_long, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
+p8 <- ggplotly(p8)
+p8
 ```
 

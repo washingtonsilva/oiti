@@ -1,34 +1,56 @@
 
-library(stargazer)
+# Diretorio de trabalho
+setwd("C:/Users/Washington/Desktop/GitHub/oiti/data.analysis")
+getwd()
+
+# Bibliotecas 
+library(mosaic)
+library(plotly)
+
+# Dados para analise
+load("dados.Rdata")
+load("df1.Rdata")
+load("df2.Rdata")
+load("df3.Rdata")
+load("df4.Rdata")
+load("df5.Rdata")
+load("df6.Rdata")
+load("df7.Rdata")
+load("df8.Rdata")
+load("df9.Rdata")
 
 
 #############################################################
 ##############  ESTATISTICAS DESCRTIVIVAS   #################
 
-Sensor_1 <- summary(dados$s1)
-Sensor_2 <- summary(dados$s2)
-Sensor_3 <- summary(dados$s3)
-Sensor_4 <- summary(dados$s4)
-Sensor_5 <- summary(dados$s5)
-Sensor_6 <- summary(dados$s6)
-Sensor_7 <- summary(dados$s7)
-Sensor_8 <- summary(dados$s8)
-s <- rbind(Sensor_1, Sensor_2, Sensor_3, Sensor_4, 
-           Sensor_5, Sensor_6, Sensor_7, Sensor_8) 
-print(s)
+# Antes de 2017-08-22 17:00 
+favstats(Temperatura~Sensores, data=df3)
 
-# Usando stargazer
-stargazer(as.data.frame(df1), type = "text")
-stargazer(as.data.frame(df4), type = "text")
-stargazer(as.data.frame(df7), type = "text")
-stargazer(as.data.frame(dados), type = "text")
+# Após 2017-08-22 17:00 e antes de 2017-08-22 18:25
+favstats(Temperatura~Sensores, data=df6)
+
+# Após 2017-08-22 18:25 
+favstats(Temperatura~Sensores, data=df9)
+
+# Medições de todo o período
+favstats(Temperatura~Sensores, data=dados_long)
+
+library(dplyr)
+group_by(my_data, group) %>%
+  summarise(
+    count = n(),
+    mean = mean(weight, na.rm = TRUE),
+    sd = sd(weight, na.rm = TRUE)
+  )
 
 #############################################################
 #############################################################
 
 ##################  ANALISE GRAFICA   #######################
 
-library(plotly)
+library("ggpubr")
+ggline(df3, x = "Sensores", y = "Temperatura", add = c("mean_se"))
+ggline(dados_long, x = "Sensores", y = "Temperatura", add = c("mean_se"))
 
 f <- list(
   family = "Courier New, monospace",
@@ -121,3 +143,11 @@ p6
 p7 <- ggplot(df9, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
 p7 <- ggplotly(p7)
 p7
+
+## dados_long <- Medições de todo o período
+p8 <- ggplot(dados_long, aes(x=Sensores, y=Temperatura, fill=Sensores)) + geom_boxplot()
+p8 + scale_fill_discrete(name=" ",
+                         breaks=c("s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"),
+                         labels=c("Sensor 1", "Sensor 2", "Sensor 3", "Sensor 4", "Sensor 5", "Sensor 6", "Sensor 7", "Sensor 8"))
+p8 <- ggplotly(p8)
+p8

@@ -1,5 +1,5 @@
 
-# Diretoria de trabalho
+# Diretorio de trabalho
 setwd("C:/Users/Washington/Desktop/GitHub/oiti/data.analysis")
 getwd()
 
@@ -24,6 +24,18 @@ vis_miss(dados)
 
 #### Salvando como .Rdata
 save(dados, file = "dados.Rdata")
+
+#### dados sem a coluna 1 (data-tempo)  wide format
+dados_wide <- dados[-1]
+str(dados_wide)
+save(dados_wide, file = "dados_wide.Rdata")
+
+#### dados sem a coluna 1 (data-tempo) long format
+dados_long <- stack(dados_wide)
+head(dados_long)
+colnames(dados_long) <- c("Temperatura", "Sensores")
+tail(dados_long)
+save(dados_long, file = "dados_long.Rdata")
 
 ###############################################################
 ###############       SUBSETTING          #####################  
